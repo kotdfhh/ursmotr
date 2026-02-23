@@ -70,7 +70,8 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = 3000;
+// Используем порт от хостинга (process.env.PORT) или 3000 локально
+const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
-    console.log(`Сервер запущен! Ссылка: http://localhost:${PORT}`);
+    console.log(`Сервер запущен! Порт: ${PORT}`);
 });
