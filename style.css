@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+:root {
+    --bg-dark: #0f0f0f;
+    --card-glass: rgba(22, 22, 22, 0.7); /* Более прозрачное стекло */
+    --accent-red: #e50914; /* Netflix Red */
+    --accent-red-hover: #f40612;
+    --text-white: #ffffff;
+    --text-gray: #b3b3b3;
+    --border-light: rgba(255, 255, 255, 0.1);
+    --shadow-strong: 0 15px 40px rgba(0,0,0,0.8);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* === ФОН (ОБЯЗАТЕЛЬНО UNSPASH) === */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Качественная картинка зала (тёмная) */
+    background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    /* Медленное увеличение (Zoom) */
+    animation: zoomBg 60s infinite alternate;
+    z-index: -2;
+    filter: brightness(0.6); /* Немного затемняем */
+}
+
+/* === ВИНЬЕТКА (Тень по краям) === */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Градиент от прозрачного в центре к черному по краям */
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 90%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes zoomBg {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* Общие утилиты */
+.hidden { display: none !important; }
+
+/* === ЛОГОТИП === */
+.top-logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 100;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.top-logo span {
+    color: var(--accent-red);
+}
+
+/* === ЭКРАНЫ === */
+.screen {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* === КАРТОЧКА ВХОДА === */
+.auth-card {
+    background: var(--card-glass);
+    backdrop-filter: blur(20px); /* Сильное размытие фона под карточкой */
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    padding: 60px;
+    width: 480px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Красная линия сверху */
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+}
+
+.hero-text h1 {
+    font-size: 50px;
+    line-height: 1;
+    font-weight: 800;
+    text-shadow: 0 5px 20px rgba(0,0,0,0.9);
+}
+.red-text { color: var(--accent-red); }
+.hero-text p {
+    color: var(--text-gray);
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+/* БЕЙДЖ КОМНАТЫ */
+.room-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-gray);
+    font-family: monospace;
+    font-size: 16px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+.room-badge span { color: white; font-weight: bold; letter-spacing: 2px; }
+
+/* ПОЛЯ ВВОДА */
+.input-group { margin-bottom: 25px; width: 100%; text-align: left; }
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-gray);
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-left: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 18px 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-red);
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.2);
+}
+
+.create-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+}
+
+.create-btn:hover {
+    background: var(--accent-red-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(229, 9, 20, 0.5);
+}
+.create-btn:active { transform: scale(0.98); }
+
+/* === ГЛАВНЫЙ ЭКРАН === */
+.app-container {
+    display: flex;
+    width: 95%;
+    max-width: 1600px;
+    height: 85vh;
+    gap: 30px;
+    margin-top: 70px;
+}
+
+.video-side {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ПОИСК */
+.search-bar { display: flex; gap: 12px; height: 56px; }
+#video-input { 
+    border-radius: 12px;
+    background: rgba(10, 10, 10, 0.8); 
+    backdrop-filter: blur(10px);
+}
+.search-btn {
+    width: 70px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.search-btn:hover { 
+    background: white; 
+    color: black; 
+    border-color: white;
+}
+
+/* ПЛЕЕР */
+.video-player {
+    flex: 1;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 70vh;
+    background: #000;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-strong);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#player-container { width: 100%; height: 100%; }
+iframe { display: block; border: none; }
+
+.placeholder i { font-size: 60px; color: #333; margin-bottom: 25px; transition: 0.3s; }
+.placeholder p { color: #666; font-size: 15px; font-weight: 500; }
+.placeholder:hover i { color: var(--accent-red); transform: scale(1.1); text-shadow: 0 0 20px var(--accent-red); }
+
+/* ФУТЕР ПЛЕЕРА */
+.video-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(15px);
+    padding: 15px 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+}
+.stats { color: var(--text-gray); font-size: 14px; font-weight: 600; }
+#current-room-id { color: white; font-weight: bold; margin-left: 8px; font-family: monospace; letter-spacing: 1px; }
+
+.copy-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.copy-btn:hover { 
+    border-color: white; 
+    color: white; 
+    background: rgba(255,255,255,0.1); 
+    box-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+/* ЧАТ */
+.chat-side {
+    flex: 1;
+    background: rgba(22, 22, 22, 0.8);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow-strong);
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-messages div {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-bottom-left-radius: 2px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #eee;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-messages b { color: var(--accent-red); font-weight: 800; margin-right: 6px; }
+
+.chat-input-container {
+    padding: 20px;
+    background: rgba(0,0,0,0.4);
+    border-top: 1px solid var(--border-light);
+    display: flex; 
+    gap: 12px;
+}
+
+.chat-input-container input {
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 14px 24px;
+    border: 1px solid transparent;
+}
+.chat-input-container input:focus {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: var(--accent-red);
+}
+
+.chat-input-container button {
+    background: var(--accent-red);
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+}
+.chat-input-container button:hover { transform: scale(1.1); background: var(--accent-red-hover); }
+
+/* SCROLLBARS */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>urсмотр | Смотрите вместе</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-logo">ur<span>смотр</span></div>
+
+    <!-- ЭКРАН ВХОДА -->
+    <div id="login-screen" class="screen">
+        <div class="auth-card">
+            <div class="room-badge">
+                <i class="fa-solid fa-door-open"></i> Комната: <span id="room-id-display">...</span>
+            </div>
+            <div class="input-group">
+                <label>Ваше имя</label>
+                <input type="text" id="username" placeholder="Никнейм...">
+            </div>
+            <button class="create-btn" onclick="showMain()">Войти</button>
+        </div>
+    </div>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <div id="main-screen" class="screen hidden">
+        <div class="app-container">
+            <div class="video-side">
+                <div class="search-bar">
+                    <input type="text" id="video-input" placeholder="Ссылка на YouTube или VK...">
+                    <button class="search-btn" onclick="startSearch()"><i class="fa-solid fa-play"></i></button>
+                </div>
+
+                <div class="video-player" id="player-area">
+                    <!-- КОНТЕЙНЕР ДЛЯ ПЛЕЕРА -->
+                    <div id="player-container"></div> 
+                    
+                    <div id="player-placeholder" class="placeholder">
+                        <i class="fa-solid fa-film"></i>
+                        <p>Вставьте ссылку для просмотра</p>
+                    </div>
+                </div>
+
+                <div class="video-footer">
+                    <div class="stats">Комната: <span id="current-room-id">...</span></div>
+                    <button class="copy-btn" onclick="copyLink()">Копировать ссылку</button>
+                </div>
+            </div>
+
+            <div class="chat-side">
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-msg" placeholder="Чат...">
+                    <button onclick="sendMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- API YouTube -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- API VK -->
+    <script src="https://vk.com/js/api/videoplayer.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
